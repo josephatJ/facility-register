@@ -1,0 +1,49 @@
+<div class="container">
+  <h1>Registration</h1>
+  <form #OrganisationUnitForm="ngForm">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Name" id="name" [(ngModel)]="model.name" name="name" required>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Short name" id="shortName" [(ngModel)]="model.shortName" name="shortName" required>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Code" id="code" [(ngModel)]="model.code" name="code">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Description" id="description" [(ngModel)]="model.description" name="description">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Comment" id="comment" [(ngModel)]="model.comment" name="comment">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Contact Person" id="contactPerson" [(ngModel)]="model.contactPerson" name="contactPerson">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Address" id="address" [(ngModel)]="model.address" name="address">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Email" id="email" [(ngModel)]="model.email" name="email">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Phone" id="phone" [(ngModel)]="model.contactPerson" name="contactPerson">
+    </div>
+    <div class="form-group">
+      <input type="number" class="form-control" placeholder="Latitude" id="latitude" [(ngModel)]="model.latitute" name="latitude">
+    </div>
+    <div class="form-group">
+      <input type="number" class="form-control" placeholder="Longitude" id="longitude" [(ngModel)]="model.longitude" name="longitude">
+    </div>
+
+    <!--<div class="form-group">-->
+      <!--<select class="form-control"  id="dataSets"-->
+              <!--required-->
+              <!--[(ngModel)]="model.dataSets" name="dataSet">-->
+        <!--<option *ngFor="let dataSet of dataSets" [value]="dataSet">{{dataSet}}</option>-->
+      <!--</select>-->
+    <!--</div>-->
+
+    <button type="submit" class="btn btn-success" (click)="onSubmit()">Submit</button>
+
+  </form>
+</div>

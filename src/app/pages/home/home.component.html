@@ -1,0 +1,10 @@
+<div class="home-container container-fluid" *ngIf="organisationGroupSets && levelFourOrgUnits">
+  <div class="row">
+    <div class="col-5">
+      <app-register></app-register>
+    </div>
+    <div class="col-7">
+      <app-general-stats [organisationUnitGroupSets]="organisationGroupSets" [levelFourOrgUnits]="levelFourOrgUnits"></app-general-stats>
+    </div>
+  </div>
+</div>

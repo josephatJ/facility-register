@@ -1,0 +1,10 @@
+.table th, .table td {
+  padding: 0.35rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.header th {
+  background-color: #eeeeee;
+  font-weight: 600;
+}

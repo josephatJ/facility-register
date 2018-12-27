@@ -1,0 +1,73 @@
+.table {
+  height: 250px; overflow: auto;
+}
+
+.list-group-items {
+  position: relative;
+  display: block;
+  margin-bottom: -1px;
+  background-color: #fff;
+}
+
+.slider {
+  margin-bottom: 20px;
+}
+
+.active {
+  background-color: #2C6695;
+  color: #FFF;
+}
+
+.item {
+  background-color: #FFF;
+  color: #222222;
+}
+
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-bottom: 5px solid transparent;  /* left arrow slant */
+  border-top: 5px solid transparent; /* right arrow slant */
+  border-left: 5px solid #2f2f2f; /* bottom, add background color here */
+  font-size: 0;
+  line-height: 0;
+}
+
+.list-group-items div {
+  padding: 0.35rem 1.2rem;
+  position: relative;
+  display: block;
+  margin-bottom: -1px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+
+div .active{
+  position:relative;
+  background:#2C6695;
+}
+div .active:after, div .active:before{
+  content:"";
+  position:absolute;
+  width:20px;
+  height:50%;
+  left:100%;
+}
+div .active:after{
+  bottom:0;
+  background: linear-gradient(to right bottom, #2C6695 50%, transparent 50%);
+}
+div .active:before{
+  top:0;
+  background: linear-gradient(to right top, #2C6695 50%, transparent 50%);
+}
+
+.header-distribution {
+  color: #2C6695;
+  margin-bottom: -15px;
+}
+
+.group-sets h5 {
+  color: #2C6695; text-align: left;
+}
+
