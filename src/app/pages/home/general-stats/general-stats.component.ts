@@ -14,8 +14,6 @@ export class GeneralStatsComponent implements OnInit {
 
   ngOnInit() {
     if (this.organisationUnitGroupSets) {
-      console.log(this.organisationUnitGroupSets);
-      console.log(this.levelFourOrgUnits.pager.total);
       this.selectedGroupId = this.organisationUnitGroupSets[0].id;
       this.setSelectedGroup(this.selectedGroupId);
     }

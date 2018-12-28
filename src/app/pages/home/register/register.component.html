@@ -1,13 +1,6 @@
 <div class="registration">
-  <div class="org-unit-filter-body">
-    <app-org-unit-filter
-      (onOrgUnitClose)="showOrgUnitFilter"
-      (onOrgUnitUpdate)="updateOrgUnit($event)"
-      [orgUnitModel]="orgUnitModel$ | async"
-    ></app-org-unit-filter>
-  </div>
   <div class="org-units-list" *ngIf="orgUnitsDefinition">
-    <app-org-units-list [orgUnitsObject]="orgUnitsDefinition"></app-org-units-list>
+    <!--<app-org-units-list [orgUnitsObject]="orgUnitsDefinition"></app-org-units-list>-->
   </div>
   <div class="registration-form">
     <app-registration-form></app-registration-form>

@@ -1,0 +1,7 @@
+<div class="org-unit-filter-body">
+  <app-org-unit-filter
+    (onOrgUnitClose)="showOrgUnitFilter"
+    (onOrgUnitUpdate)="updateOrgUnit($event)"
+    [orgUnitModel]="orgUnitModel$ | async"
+  ></app-org-unit-filter>
+</div>

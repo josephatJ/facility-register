@@ -1,0 +1,13 @@
+<div class="dashboard-container container-fluid" *ngIf="organisationGroupSets && levelFourOrgUnits">
+  <div class="row">
+    <div class="col-2">
+      <app-filter-section [selectOrgUnitId]="selectedOrgUnitId" (organisationsDefinition)="getSelectedOrgUnitDefinition($event)"></app-filter-section>
+    </div>
+    <div class="col-10" *ngIf="selectedOrgUnitDefinition.typeOfAction == 'update'">
+      <app-general-stats [organisationUnitGroupSets]="organisationGroupSets" [levelFourOrgUnits]="levelFourOrgUnits"></app-general-stats>
+    </div>
+    <div class="col-10" *ngIf="selectedOrgUnitDefinition.typeOfAction == 'manage'">
+      <app-list-items [orgUnitsObject]="selectedOrgUnitDefinition"></app-list-items>
+    </div>
+  </div>
+</div>

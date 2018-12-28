@@ -1,25 +1,60 @@
 <div class="list-of-org-items" *ngIf="orgUnitsObject">
   <ul class="list-group">
-    <li class="list-group-item" id="{{orgUnitsObject['arrayed_org_units'][0][0].id}}">{{orgUnitsObject['arrayed_org_units'][0][0].name}}</li>
-    <li class="list-group-item" style="cursor: pointer;" *ngFor="let item of pagedItems" id="{{ item.id }}">
-      {{ item.name }}
-    </li>
-    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-      <li [ngClass]="{disabled:pager.currentPage === 1}">
-        <a (click)="setPage(1)">First</a>
-      </li>
-      <li [ngClass]="{disabled:pager.currentPage === 1}">
-        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
-      </li>
-      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-        <a (click)="setPage(page)">{{page}}</a>
-      </li>
-      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-        <a (click)="setPage(pager.currentPage + 1)">Next</a>
-      </li>
-      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-        <a (click)="setPage(pager.totalPages)">Last</a>
-      </li>
-    </ul>
+    <div class="list-groups">
+      <div class="list-group-items" id="{{orgUnitsObject['items'][0].id}}">
+        <div class="row">
+          <div class="col-11 org-name" style="display: inline-block" routerLink="/dashboard/edit/{{orgUnitsObject['items'][0].id}}">
+            {{orgUnitsObject['items'][0].name}}
+          </div>
+          <div class="col-1 menu-settings">
+            <li>
+              <input id="input-{{orgUnitsObject['items'][0].id}}" type="checkbox" name="menu-settings"/>
+              <label for="input-{{orgUnitsObject['items'][0].id}}"><img src="assets/icons/settings-three-dots.png" style="margin-top: -20px" height="25" width="25"></label>
+              <ul class="submenu">
+                <li><a routerLink="/dashboard/edit/{{orgUnitsObject['items'][0].id}}">Edit</a></li>
+                <li><a routerLink="/dashboard/{{orgUnitsObject['items'][0].id}}">Delete</a></li>
+                <li><a routerLink="/dashboard/change-group/{{orgUnitsObject['items'][0].id}}">Assign/Change groups</a></li>
+                <li><a routerLink="/dashboard/change-program/{{orgUnitsObject['items'][0].id}}">Assign/Change programs</a></li>
+                <li><a routerLink="/dashboard/change-datasets/{{orgUnitsObject['items'][0].id}}">Assign/Remove datasets</a></li>
+              </ul>
+            </li>
+          </div>
+        </div>
+      </div>
+      <div
+            class="list-group-items"
+            id="{{item.id}}"
+           *ngFor="let item of getOrgUnitChildren(orgUnitsObject) | paginate: { itemsPerPage: 10, currentPage: p }"
+      >
+        <div class="row">
+          <div class="col-11 org-name" style="display: inline-block" routerLink="/dashboard/edit/{{item.id}}">
+            {{item.name}}
+          </div>
+          <div class="col-1 menu-settings">
+            <li>
+              <input id="input-{{item.id}}" type="checkbox" name="menu-settings"/>
+              <label  for="input-{{item.id}}">
+                <img src="assets/icons/settings-three-dots.png" style="margin-top: -20px" height="25" width="25">
+              </label>
+              <ul class="submenu">
+                <li><a routerLink="/dashboard/edit/{{item.id}}">Edit</a></li>
+                <li><a routerLink="/dashboard/{{item.id}}">Delete</a></li>
+                <li><a routerLink="/dashboard/change-group/{{item.id}}">Assign/Change groups</a></li>
+                <li><a routerLink="/dashboard/change-program/{{item.id}}">Assign/Change programs</a></li>
+                <li><a routerLink="/dashboard/change-datasets/{{item.id}}">Assign/Remove datasets</a></li>
+              </ul>
+            </li>
+          </div>
+        </div>
+        <div class="settings-options pull-right" [ngClass]="item.id == selectedItemId ? 'active-settings-options': 'inactive-settings-options'">
+          <ul class="list-group">
+            <li class="list-group-items">Edit</li>
+            <li class="list-group-items">Delete</li>
+            <li class="list-group-items">Change group</li>
+          </ul>
+        </div>
+      </div>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
   </ul>
 </div>

@@ -17,7 +17,6 @@ export class ChartComponent implements OnInit {
 
   ngOnInit() {
     if (this.orgUnitGroup) {
-      console.log('totalNumberOfLevelFour', this.totalNumberOfLevelFour)
       this.Highcharts = Highcharts;
       const data = [];
       let totalOrgUnits = 0;

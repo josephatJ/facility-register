@@ -3,7 +3,7 @@ import { HttpClientService } from "src/app/services/http-client.service";
 import { Injectable } from "@angular/core";
 import * as orgUnits from '../organisation-units/organisation-units.actions'
 import { switchMap, catchError, map } from "rxjs/operators";
-import { OrganisationUnitGroupSetsState } from "./organisation-units.state";
+import {OrganisationUnitGroupSetsState, OrganisationUnitsState} from './organisation-units.state';
 import { of, Observable, forkJoin } from "rxjs";
 import * as _ from 'lodash';
 
@@ -15,13 +15,25 @@ export class OrganisationUnitsEffects {
     loadOrgUnitsGroupSets$ = this.actions$
     .ofType<orgUnits.LoadOrganisationUnitGroupSetsAction>(orgUnits.OrganisationUnitsActions.LOAD_ORG_UNITS_GROUP_SETS)
     .pipe(
-        switchMap(() => 
+        switchMap(() =>
         this._orgUnitGroupSetsInfo(['organisationUnitGroupSets.json?paging=false&fields=id,name,organisationUnitGroups[id,name,organisationUnits~size]', 'organisationUnits.json?level=4&fields=*']).pipe(
-            map((orgGroupSets: OrganisationUnitGroupSetsState) => 
+            map((orgGroupSets: OrganisationUnitGroupSetsState) =>
             new orgUnits.LoadOrganisationUnitGroupSetsSuccessAction(orgGroupSets)),
             catchError((error) => of (new orgUnits.LoadOrganisationUnitGroupSetsFailAction(error)))
             ))
     );
+
+    @Effect()
+    organisationUnit$ = this.actions$
+      .ofType<orgUnits.LoadOrganisationUnitsAction>(orgUnits.OrganisationUnitsActions.LOAD_ORGANISATION_UNIT)
+      .pipe(
+        switchMap( (action: any) => this._getOrganisationUnit(action.payload)
+          .pipe(
+            map( (organisationUnit: OrganisationUnitsState) =>
+            new orgUnits.LoadOrganisationUnitsSuccessAction(organisationUnit)),
+            catchError( (error) => of (new orgUnits.LoadOrganisationUnitsFailAction(error)))
+          ))
+      );
 
     constructor(private actions$: Actions,
         private httpClient: HttpClientService) {
@@ -33,16 +45,21 @@ private _orgUnitGroupSetsInfo(urls) {
             _.map(urls, (url) =>
             this.httpClient.get(url)
             )
-        ).subscribe((returnedObject) =>{
+        ).subscribe((returnedData) => {
             observer.next(
-                _.map(returnedObject,
-                    (returnedObject: any, returnedObjectIndex: number) =>
-                    {
-                        return {returnedObjectIndex, ...returnedObject}
-                    }
-                    )
-            )
-        })
-    })
+              _.map(returnedData,
+                  (returnedObject: any, returnedObjectIndex: number) => {
+                      return {returnedObjectIndex, ...returnedObject};
+                  }
+                  )
+            );
+        });
+    });
+}
+
+private  _getOrganisationUnit(id): Observable<any> {
+      const url = 'organisationUnits/' + id + '.json?fields=id,name,level,children[id,name,level]';
+      console.log(url);
+      return this.httpClient.get(url);
 }
 }

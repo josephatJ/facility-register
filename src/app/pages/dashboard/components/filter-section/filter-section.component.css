@@ -1,0 +1,36 @@
+.org-unit-selection {
+  position: absolute;
+  z-index: 1200;
+  border: solid 1px #dddddd;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.org-unit-selection {
+  max-height: 300px;
+}
+
+.filter-btn {
+  border-color: #dddddd;
+}
+
+.filter-btn:hover, .filter-btn:focus {
+  background-color: #ffffff;
+  color: #222222;
+  box-shadow: none;
+}
+
+.filter-btn img {
+  height: 30px;
+}
+
+.org-units-list {
+  margin-top: 40px;
+}
+.registration-form {
+  margin-top: 20px;
+}
+
+.org-unit-filter-body {
+  min-width: 100px;
+}

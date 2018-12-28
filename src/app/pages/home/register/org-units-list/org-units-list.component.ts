@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PagerService} from '../../../../services/pager.service';
+import { Router, Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 
 @Component({
   selector: 'app-org-units-list',
@@ -9,26 +10,39 @@ import {PagerService} from '../../../../services/pager.service';
 export class OrgUnitsListComponent implements OnInit {
 
   @Input() orgUnitsObject: any;
-  orgUnitsChildren: any;
-  pagedItems: any[];
-  // pager object
-  pager: any = {};
-  constructor(private pagerService: PagerService) { }
+  selectedItemId: string;
+  constructor(private pagerService: PagerService, private router: Router) {
+    router.events.subscribe( (event: Event) => {
+      if (event instanceof NavigationStart) {
+        // Show loading indicator
+        console.log('loading indicator');
+      }
+
+      if (event instanceof NavigationEnd) {
+        // Hide loading indicator
+        console.log('hide loading indicator');
+      }
+
+      if (event instanceof NavigationError) {
+        // Hide loading indicator
+
+        // Present error to user
+        console.log(event.error);
+      }
+    });
+  }
 
   ngOnInit() {
-    if (this.orgUnitsObject) {
-      this.orgUnitsChildren = this.orgUnitsObject['arrayed_org_units'][0][0]['children'];
-      this.setPage(1);
-      console.log(JSON.stringify(this.orgUnitsObject['arrayed_org_units'][0][0]));
-    }
+    this.selectedItemId = this.orgUnitsObject['items'][0].id;
   }
 
-  setPage(page: number) {
-    // get pager object from service
-    this.pager = this.pagerService.getPager(this.orgUnitsChildren.length, page);
-
-    // get current page of items
-    this.pagedItems = this.orgUnitsChildren.slice(this.pager.startIndex, this.pager.endIndex + 1);
+  getOrgUnitChildren(orgUnitsObject) {
+    return orgUnitsObject['items'][0]['children'];
   }
 
+  showSettingsOptions(orgId, level) {
+    // show settings options
+    console.log(level);
+    this.selectedItemId = orgId;
+  }
 }

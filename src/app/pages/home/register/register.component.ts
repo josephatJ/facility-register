@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import {Observable} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -49,7 +50,7 @@ export class RegisterComponent implements OnInit {
       'selectedUserOrgUnits': []
     });
   });
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit() {
@@ -60,6 +61,7 @@ export class RegisterComponent implements OnInit {
     this.showOrgUnitFilter = false;
     this.orgUnitsDefinition = null;
     this.orgUnitsDefinition = orgUnitModel;
+    this.router.navigate(['/dashboard/' + orgUnitModel['arrayed_org_units'][0][0].id]);
       if (orgUnitModel.items && orgUnitModel.items.length > 0) {
         const nonOrgUnitItems = orgUnitModel.items.filter(
           (item: any) =>

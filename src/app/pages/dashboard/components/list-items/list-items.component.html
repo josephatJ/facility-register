@@ -1,0 +1,63 @@
+<div class="list-of-org-items" *ngIf="selectedItemId != '' && orgUnitsObject['items'].length > 0">
+  <ul class="list-group">
+    <div class="list-groups">
+      <div class="list-group-items" id="{{orgUnitsObject['items'][0].id}}">
+        <div class="row">
+          <div class="col-11 org-name" style="display: inline-block" routerLink="/dashboard-management/edit/{{orgUnitsObject['items'][0].id}}/{{orgUnitsObject['items'][0].level}}">
+            {{orgUnitsObject['items'][0].name}}
+          </div>
+          <div class="col-1 menu-settings">
+            <li>
+              <input id="input-{{orgUnitsObject['items'][0].id}}" type="checkbox" name="menu-settings"/>
+              <label for="input-{{orgUnitsObject['items'][0].id}}"><img src="assets/icons/settings-three-dots.png" style="margin-top: -20px" height="25" width="25"></label>
+              <ul class="submenu">
+                <li><a routerLink="/dashboard-management/edit/{{orgUnitsObject['items'][0].id}}/{{orgUnitsObject['items'][0].level}}">Edit</a></li>
+                <li><a routerLink="/dashboard-management/{{orgUnitsObject['items'][0].id}}/{{orgUnitsObject['items'][0].level}}">Delete</a></li>
+                <li><a routerLink="/dashboard-management/change-group/{{orgUnitsObject['items'][0].id}}/{{orgUnitsObject['items'][0].level}}">Assign/Change groups</a></li>
+                <li><a routerLink="/dashboard-management/change-program/{{orgUnitsObject['items'][0].id}}/{{orgUnitsObject['items'][0].level}}">Assign/Change programs</a></li>
+                <li><a routerLink="/dashboard-management/change-datasets/{{orgUnitsObject['items'][0].id}}/{{orgUnitsObject['items'][0].level}}">Assign/Remove datasets</a></li>
+              </ul>
+            </li>
+          </div>
+        </div>
+      </div>
+      <div
+        class="list-group-items"
+        id="{{item.id}}"
+        *ngFor="let item of getOrgUnitChildren(orgUnitsObject) | paginate: { itemsPerPage: 10, currentPage: p }"
+      >
+        <div class="row">
+          <div class="col-11 org-name"
+               style="display: inline-block"
+               routerLink="/dashboard-management/edit/{{item.id}}/{{item.level}}"
+          >
+            {{item.name}}
+          </div>
+          <div class="col-1 menu-settings">
+            <li>
+              <input id="input-{{item.id}}" type="checkbox" name="menu-settings"/>
+              <label  for="input-{{item.id}}">
+                <img src="assets/icons/settings-three-dots.png" style="margin-top: -20px" height="25" width="25">
+              </label>
+              <ul class="submenu">
+                <li><a routerLink="/dashboard-management/edit/{{item.id}}/{{item.level}}">Edit</a></li>
+                <li><a routerLink="/dashboard-management/{{item.id}}/{{item.level}}">Delete</a></li>
+                <li><a routerLink="/dashboard-management/change-group/{{item.id}}/{{item.level}}">Assign/Change groups</a></li>
+                <li><a routerLink="/dashboard-management/change-program/{{item.id}}/{{item.level}}">Assign/Change programs</a></li>
+                <li><a routerLink="/dashboard-management/change-datasets/{{item.id}}/{{item.level}}">Assign/Remove datasets</a></li>
+              </ul>
+            </li>
+          </div>
+        </div>
+        <div class="settings-options pull-right" [ngClass]="item.id == selectedItemId ? 'active-settings-options': 'inactive-settings-options'">
+          <ul class="list-group">
+            <li class="list-group-items">Edit</li>
+            <li class="list-group-items">Delete</li>
+            <li class="list-group-items">Change group</li>
+          </ul>
+        </div>
+      </div>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </ul>
+</div>

@@ -27,6 +27,11 @@ import {FormsModule} from '@angular/forms';
 import {sharedModules} from './shared';
 import { OrgUnitsListComponent } from './pages/home/register/org-units-list/org-units-list.component';
 import {PagerService} from './services/pager.service';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { FilterSectionComponent } from './pages/dashboard/components/filter-section/filter-section.component';
+import { ManageOrgUnitsComponent } from './pages/dashboard/components/manage-org-units/manage-org-units.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { ListItemsComponent } from './pages/dashboard/components/list-items/list-items.component';
 
 
 @NgModule({
@@ -39,11 +44,16 @@ import {PagerService} from './services/pager.service';
     SliderComponent,
     TableComponent,
     RegistrationFormComponent,
-    OrgUnitsListComponent
+    OrgUnitsListComponent,
+    DashboardComponent,
+    FilterSectionComponent,
+    ManageOrgUnitsComponent,
+    ListItemsComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    NgxPaginationModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,

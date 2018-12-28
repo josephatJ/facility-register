@@ -6,8 +6,9 @@ import * as currentUser from './current-user.actions';
 import {Observable, of, forkJoin} from 'rxjs';
 import {CurrentUserState} from './current-user.state';
 
-import {catchError, map, switchMap} from 'rxjs/operators';
+import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import * as _ from 'lodash';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class CurrentUserEffects {
@@ -23,6 +24,21 @@ export class CurrentUserEffects {
       ))
     );
 
+  @Effect({dispatch: false})
+  currentUserLoaded$ = this.actions$
+    .ofType<currentUser.LoadCurrentUserSuccessAction>(currentUser.CurrentUserActions.LOAD_CURRENT_USER_SUCCESS)
+    .pipe(tap((action: any) => {
+      let navigateTo = '';
+      if (this.router.url !== '/' || this.router.url.length > 4) {
+        navigateTo = this.router.url;
+      } else {
+        navigateTo = '/dashboard/update/' + action.payload['dataViewOrganisationUnits'][0]['id'];
+      }
+      if (navigateTo !== '') {
+        this.router.navigate([navigateTo]);
+      }
+    }))
+
     @Effect()
     loadIdentifiableObject$ = this.actions$
     .ofType<currentUser.LoadIdentifiableObjectAction>(currentUser.CurrentUserActions.LOAD_IDENTIFIABLE_OBJECT)
@@ -31,9 +47,9 @@ export class CurrentUserEffects {
         .pipe(map((obj) => new currentUser.LoadIdentifiableObjectSuccessAction(obj)),
         catchError( (error) => of (new currentUser.LoadIdentifiableObjectFailAction(error)))
         ))
-    )
+    );
 
-  constructor(private actions$: Actions,
+  constructor(private actions$: Actions, private router: Router,
               private httpClient: HttpClientService) {
   }
 
@@ -45,18 +61,17 @@ export class CurrentUserEffects {
   private _loadIdentifiableObject(objects) {
     return new Observable(observer => {
         forkJoin(
-            _.map(objects, (object) => 
+            _.map(objects, (object) =>
             this.httpClient.get('identifiableObjects/' + object.id + '.json?fields=id,name'))
         ).subscribe((identifiableObject) => {
             observer.next(
                 _.map(identifiableObject,
-                    (loadedObject: any, loadedObjectIndex: number) =>
-                    {
-                        return {loadedObjectIndex, ...loadedObject}
-                    }
-                    )
-            )
-        })
+                    (loadedObject: any, loadedObjectIndex: number) => {
+                        return {loadedObjectIndex, ...loadedObject};
+                }
+              )
+            );
+        });
     });
   }
 }

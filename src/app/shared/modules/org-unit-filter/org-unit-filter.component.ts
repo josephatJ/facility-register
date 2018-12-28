@@ -361,7 +361,7 @@ export class OrgUnitFilterComponent implements OnInit, OnDestroy {
     this.orgUnit = $event.node.data;
   }
 
-  emit(e) {
+  emit(e, typeOfAction) {
     e.stopPropagation();
     const mapper = {};
     this.orgUnitModel.selectedOrgUnits.forEach(function (orgUnit) {
@@ -374,13 +374,13 @@ export class OrgUnitFilterComponent implements OnInit, OnDestroy {
     Object.keys(mapper).forEach(function (orgUnits) {
       arrayed_org_units.push(mapper[orgUnits]);
     });
-    this.onOrgUnitClose.emit(true);
     this.onOrgUnitUpdate.emit({
       starting_name: this.getProperPreOrgunitName(),
       arrayed_org_units: arrayed_org_units,
       items: this.getSelectedOrgUnitItems(this.orgUnitModel),
       name: 'ou',
-      value: this.getOrgUnitsForAnalytics(this.orgUnitModel, false)
+      value: this.getOrgUnitsForAnalytics(this.orgUnitModel, false),
+      typeOfAction: typeOfAction
     });
     this.onOrgUnitModelUpdate.emit(this.orgUnitModel);
   }
