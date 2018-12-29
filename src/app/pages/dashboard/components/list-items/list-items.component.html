@@ -41,7 +41,7 @@
               </label>
               <ul class="submenu">
                 <li><a routerLink="/dashboard-management/edit/{{item.id}}/{{item.level}}">Edit</a></li>
-                <li><a routerLink="/dashboard-management/{{item.id}}/{{item.level}}">Delete</a></li>
+                <li><a (click)="deleteThisItem(item.id, item.level)">Delete</a></li>
                 <li><a routerLink="/dashboard-management/change-group/{{item.id}}/{{item.level}}">Assign/Change groups</a></li>
                 <li><a routerLink="/dashboard-management/change-program/{{item.id}}/{{item.level}}">Assign/Change programs</a></li>
                 <li><a routerLink="/dashboard-management/change-datasets/{{item.id}}/{{item.level}}">Assign/Remove datasets</a></li>
@@ -58,6 +58,12 @@
         </div>
       </div>
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      <div class="row">
+        <div class="col-12" style="padding: 0">
+          <img class="pull-right" title="Add organisation unit" src="assets/icons/add-icon-green.png" routerLink="/dashboard-management/add/{{orgUnitsObject['items'][0].id}}/{{orgUnitsObject['items'][0].level}}">
+        </div>
+      </div>
+
     </div>
   </ul>
 </div>

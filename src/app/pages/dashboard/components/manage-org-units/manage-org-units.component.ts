@@ -18,6 +18,8 @@ export class ManageOrgUnitsComponent implements OnInit {
   organisationUnit$: Observable<OrganisationUnitsState>;
   organisationUnitGroupSets$: Observable<OrganisationUnitGroupSetsState>;
   selectedOrgUnitId: string;
+  typeOfAction: string;
+  level: string;
   constructor(private route: ActivatedRoute, private store: Store<AppState>, private httpClient: HttpClientService) {
     this.organisationUnitGroupSets$ = store.pipe(select(getOrganisationUnitGroupSets));
   }
@@ -25,6 +27,8 @@ export class ManageOrgUnitsComponent implements OnInit {
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       if (params['id']) {
+        this.typeOfAction = params['typeOfAction'];
+        this.level = params['level'];
         this.selectedOrgUnitId = params['id'];
         this.store.dispatch(new orgUnits.LoadOrganisationUnitsAction(this.selectedOrgUnitId));
         this.organisationUnit$ = this.store.pipe(select(getOrganisationUnitByID));

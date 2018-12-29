@@ -67,4 +67,7 @@ export class ListItemsComponent implements OnInit {
     return orgUnitsObject['items'][0]['children'];
   }
 
+  deleteThisItem(id, level) {
+    // delete item
+  }
 }

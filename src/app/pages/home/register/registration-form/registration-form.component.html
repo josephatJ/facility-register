@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Registration</h1>
-  <form #OrganisationUnitForm="ngForm">
+  <form #OrganisationUnitForm="ngForm" *ngIf="typeOfAction === 'add'">
     <div class="form-group">
       <input type="text" class="form-control" placeholder="Name" id="name" [(ngModel)]="model.name" name="name" required>
     </div>
@@ -35,6 +35,28 @@
       <input type="number" class="form-control" placeholder="Longitude" id="longitude" [(ngModel)]="model.longitude" name="longitude">
     </div>
 
+    <div class="form-group">
+      <div class="select-multiple">
+        <div class="items-available-body" style="width: 47%; display: inline-block">
+          <label>Available data sets ({{availableDataSets.length}})</label>
+          <div class="list-group-items" style="height: 120px; overflow: auto; border: solid 1px #ced4da;">
+            <div *ngFor="let availableItem of availableDataSets">
+              <a (click)="toggleListOfItems(availableItem.id, $event)">{{availableItem.displayName}}</a>
+            </div>
+          </div>
+        </div>
+        <div style="width: 6%; display: inline-block"></div>
+        <div class="items-available-body" style="width: 47%; display: inline-block; float: right">
+          <label>Selected data sets ( {{ selectedItems.length}} )</label>
+          <div class="list-group-items" style="height: 120px; overflow: auto; border: solid 1px #ced4da;">
+            <div *ngFor="let availableItem of selectedItems">
+              <a (click)="toggleListOfItems(availableItem.id, 'un-select')" [(ngModel)]="model.dataSets" name="dataSets">{{availableItem.displayName}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!--<div class="form-group">-->
       <!--<select class="form-control"  id="dataSets"-->
               <!--required-->
@@ -43,7 +65,19 @@
       <!--</select>-->
     <!--</div>-->
 
-    <button type="submit" class="btn btn-success" (click)="onSubmit()">Submit</button>
+    <div id="wrapper">
+      <a type="submit" class="btn btn-success" href="#popup-div" (click)="onSubmit(typeOfAction)">{{typeOfAction}}</a>
+      <a type="submit" class="btn btn-success" routerLink="/dashboard/manage/{{parent}}">Cancel</a>
+    </div>
+
+    <div id="popup-div" class="overlay">
+      <div class="popup">
+        <a class="close" href="/#/dashboard-management/{{typeOfAction}}/{{parent}}/{{level}}">&times;</a>
+        <div class="content" *ngIf="createMessage">
+          <p>Message</p>
+        </div>
+      </div>
+    </div>
 
   </form>
 </div>

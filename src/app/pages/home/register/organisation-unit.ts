@@ -1,4 +1,4 @@
-export class OrganisationUnit {
+export class OrganisationUnitLevelFour {
   constructor(
     public id: string,
     public name: string,
