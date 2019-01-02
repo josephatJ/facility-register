@@ -32,7 +32,6 @@ export class DashboardComponent implements OnInit {
     typeOfAction: 'update'
   };
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {
-    store.dispatch(new currentUser.LoadCurrentUserAction());
     store.dispatch( new orgUnits.LoadOrganisationUnitGroupSetsAction);
     this.currentUser$ = store.pipe(select(getCurrentUser));
     this.organisationUnitGroupSets$ = store.pipe(select(getOrganisationUnitGroupSets));

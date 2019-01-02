@@ -1,0 +1,12 @@
+<table *ngIf="orgUnitGroup" class="table table-bordered">
+  <thead>
+    <tr class="header">
+      <th>Group</th><th>Health facilities</th><th>%</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let row of getDataForTable(selectedOrganisationUnit, orgUnitGroup, levelFourOrgUnits)">
+  <tr *ngIf="row.numberOfOrgUnitsLevelFour > 0">
+    <td>{{row.name}}</td><td>{{row.numberOfOrgUnitsLevelFour}}</td><td>{{row.percentage}}</td>
+  </tr>
+  </tbody>
+</table>

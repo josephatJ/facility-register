@@ -1,0 +1,20 @@
+<div class="notifications" *ngIf="listOfUnConfirmedUnits.length > 0">
+  <div class="notifications-label" (click)="setManageNotification($event, isManageNotification)">
+    <h4 title="Notifications">
+      <img height="30" width="30" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPDSURBVGhD7ZlbaBRXGMen2t2Z2QRj0YBpEQreQLyVKL7UJilqiw+C9QLGG/qQiqJRihirNm3YpUXx8tw+tM+h3igoaGQ3E40kG42JaWwmG1MiqAg+Bkkx5+93Zj9DLiexO5m9BOYPP9idOef7/88312U1X758+Zq0EjV5S+2IcdUOG1cSkbwlvHnqqTtiPiHgEDZ7ePPUUs8vHxUMLYKxq7UZvHtqSEQDSwbr9J/7r+kYuGE4yM9ym9zHw3JX4rY+T9Trl1GvYzxETBfOmKj+KU/LLVG4LynkK1V4FXIsUcbTc0NoCBRTqH5V4Ilw5kQDK7hMdoWoZoj6YK8q6P9BxIJPxHVN53LZEwX5ThUwFYQVPMrlsie6Nh6rwqUC1ejkctmRiOrzVcFckc27GF2s65ShXCBrcdnMS8QC5apQbpC1uGzm5S9Egb8QL0QPwlOqUG4Q0eApLpt5URf/VIVyA921/uKymRW/mrxUhXKDrJWVVxV6NfleFWhyBKu4fGYkLHM1nQoD6jDukTVF7MNVbJNeCSu/kE6Dp6ogXkBHuk96sF16hFptOhnVqQJ4CTXqpvRiW+9Fh/6syjgdkNcZtvVWwjJ2qgzTBS2EftsHdrC9NxJtJVtEw0zPL+73IayC1+LhF99wjMkJ7euLReL4IHp/BP7ZB7SWAvfmKo09oaEAiC8H/t4O9J6G400ZOI47Ado00by8G137gX9rRtJzAni8B3i4FmheBjR+Alh56nDjEqJ5RRT8M6B9A9BVQeGpYcN97P0Q8RVdlOUDjpW66CfoxSFTadi6hsLvdjo1wmyIn4DEMQr0LY3bC3SWAx3bgEebqMNbk9/ldtmY7qNjQ78jUZlskPRkf8pynmOlLrrg7g8tZDiy800LgQe0sI4t1LUDFOoHdaj3IefZB2mxG5NH5s6ssX5JWjhW6hJWcCH9LrcVRcdimdTBj2mBi4CWYjp6JUQZ0PZ1kvavqMv0vfVz4P5KGjcfuDtbXWsUlKGLnl8LOJY7yZdDxPQKokXeElVG6SB5+9Xjjjdl4DjeSNSHikTM2E0mF+jpaxEvVCHcQLWeIxaMObWjxi5EQ3PYNjMSjZpJp+BiClBGYTb/dyt4uO9XY/Dpbwae/W7ixR9J5Ge5Te57c0s/JMc6c+RcqsHlckfxk3ppXWUIEyHH8PDcVTwcKmqqMkVTVQhqzMGmai2zp41bdYeNS6P/rRpGLQ/LfdmR/EIK3DlqAbAjRofcx8OmhjqqtXw7bB6xw8Y1h4hZ2XcuBy9qX758+cqCNO0tPjlXUaj2SzgAAAAASUVORK5CYII=">{{listOfUnConfirmedUnits.length}}
+    </h4>
+  </div>
+  <div class="notifications-confirm-container" *ngIf="isManageNotification &&hasAccessToView">
+    <div  *ngFor="let unConfirmedOrganisationUnit of listOfUnConfirmedUnits">
+      <h4>
+        <span class="facility-name">{{unConfirmedOrganisationUnit['object'].name}}</span>
+        <a class="btn" (click)="confirmOrgUnit(unConfirmedOrganisationUnit)">
+          Confirm {{unConfirmedOrganisationUnit.action}}
+        </a>
+        <a class="btn" routerLink="/dashboard-management/edit/{{unConfirmedOrganisationUnit['object'].id}}/{{getOrgUnitLevel(unConfirmedOrganisationUnit['object'].path)}}">
+          View
+        </a>
+      </h4>
+    </div>
+  </div>
+</div>

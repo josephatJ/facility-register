@@ -7,6 +7,8 @@ import {organisationUnitGroupSetsReducer, organisationUnitsReducer} from './orga
 import {OrganisationUnitGroupSetsState, OrganisationUnitsState} from './organisation-units/organisation-units.state';
 import {DataSetsState} from './data-sets/data-sets.state';
 import {dataSetsReducer} from './data-sets/data-sets.reducers';
+import {OrganisationUnitFromStoreState, UserAccessState} from './dhis2-data-store/dhis2-data-store.state';
+import {organisationUnitsFromDataStoreReducer, userAccessReducer} from './dhis2-data-store/dhis2-data-store.reducers';
 
 export interface AppState {
   currentUser: CurrentUserState;
@@ -14,6 +16,8 @@ export interface AppState {
   organisationUnitGroupSets: OrganisationUnitGroupSetsState;
   organisationUnit: OrganisationUnitsState;
   dataSets: DataSetsState;
+  userAccess: UserAccessState;
+  unConfirmedOrgUnits: OrganisationUnitFromStoreState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
@@ -21,7 +25,9 @@ export const reducers: ActionReducerMap<AppState> = {
   identifiableObject: identifiableObjectReducer,
   organisationUnitGroupSets: organisationUnitGroupSetsReducer,
   organisationUnit: organisationUnitsReducer,
-  dataSets: dataSetsReducer
+  dataSets: dataSetsReducer,
+  userAccess: userAccessReducer,
+  unConfirmedOrgUnits: organisationUnitsFromDataStoreReducer,
   };
 
   export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [storeFreeze] : [];

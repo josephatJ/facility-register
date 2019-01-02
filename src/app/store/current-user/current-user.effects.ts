@@ -29,11 +29,13 @@ export class CurrentUserEffects {
     .ofType<currentUser.LoadCurrentUserSuccessAction>(currentUser.CurrentUserActions.LOAD_CURRENT_USER_SUCCESS)
     .pipe(tap((action: any) => {
       let navigateTo = '';
-      if (this.router.url !== '/' || this.router.url.length > 4) {
-        navigateTo = this.router.url;
-      } else {
+      console.log('this.router.url', this.router.url);
+      if (this.router.url === '/') {
         navigateTo = '/dashboard/update/' + action.payload['dataViewOrganisationUnits'][0]['id'];
+      } else {
+        navigateTo = this.router.url;
       }
+      console.log(navigateTo);
       if (navigateTo !== '') {
         this.router.navigate([navigateTo]);
       }

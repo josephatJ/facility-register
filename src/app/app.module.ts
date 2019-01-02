@@ -16,22 +16,22 @@ import {HttpClientService} from './services/http-client.service';
 import {HomeComponent} from './pages/home/home.component';
 import {NgxDhis2MenuModule} from '@hisptz/ngx-dhis2-menu';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { GeneralStatsComponent } from './pages/home/general-stats/general-stats.component';
-import { RegisterComponent } from './pages/home/register/register.component';
+import { GeneralStatsComponent } from './pages/dashboard/components/general-stats/general-stats.component';
 import {HighchartsChartModule} from 'highcharts-angular';
-import { ChartComponent } from './pages/home/chart/chart.component';
-import { SliderComponent } from './pages/home/slider/slider.component';
-import { TableComponent } from './pages/home/table/table.component';
-import { RegistrationFormComponent } from './pages/home/register/registration-form/registration-form.component';
+import { ChartComponent } from './pages/dashboard/components/shared/chart/chart.component';
+import { SliderComponent } from './pages/dashboard/components/shared/slider/slider.component';
+import { TableComponent } from './pages/dashboard/components/shared/table/table.component';
 import {FormsModule} from '@angular/forms';
 import {sharedModules} from './shared';
-import { OrgUnitsListComponent } from './pages/home/register/org-units-list/org-units-list.component';
 import {PagerService} from './services/pager.service';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FilterSectionComponent } from './pages/dashboard/components/filter-section/filter-section.component';
 import { ManageOrgUnitsComponent } from './pages/dashboard/components/manage-org-units/manage-org-units.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ListItemsComponent } from './pages/dashboard/components/list-items/list-items.component';
+import { NotificationsComponent } from './pages/dashboard/components/notifications/notifications.component';
+import { OrganisationUnitRegistrationComponent } from './pages/dashboard/components/organisation-unit-registration/organisation-unit-registration.component';
+import { ConfirmOrgRegistrationComponent } from './pages/dashboard/components/confirm-org-registration/confirm-org-registration.component';
 
 
 @NgModule({
@@ -39,16 +39,16 @@ import { ListItemsComponent } from './pages/dashboard/components/list-items/list
     AppComponent,
     HomeComponent,
     GeneralStatsComponent,
-    RegisterComponent,
     ChartComponent,
     SliderComponent,
     TableComponent,
-    RegistrationFormComponent,
-    OrgUnitsListComponent,
     DashboardComponent,
     FilterSectionComponent,
     ManageOrgUnitsComponent,
-    ListItemsComponent
+    ListItemsComponent,
+    NotificationsComponent,
+    OrganisationUnitRegistrationComponent,
+    ConfirmOrgRegistrationComponent
   ],
   imports: [
     BrowserModule,

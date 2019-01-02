@@ -16,7 +16,7 @@ export class OrganisationUnitsEffects {
     .ofType<orgUnits.LoadOrganisationUnitGroupSetsAction>(orgUnits.OrganisationUnitsActions.LOAD_ORG_UNITS_GROUP_SETS)
     .pipe(
         switchMap(() =>
-        this._orgUnitGroupSetsInfo(['organisationUnitGroupSets.json?paging=false&fields=id,name,organisationUnitGroups[id,name,organisationUnits~size]', 'organisationUnits.json?level=4&fields=*']).pipe(
+        this._orgUnitGroupSetsInfo(['organisationUnitGroupSets.json?paging=false&fields=id,name,organisationUnitGroups[id,name,organisationUnits[id,name,path]]', 'organisationUnits.json?paging=false&level=4&fields=id,name,path']).pipe(
             map((orgGroupSets: OrganisationUnitGroupSetsState) =>
             new orgUnits.LoadOrganisationUnitGroupSetsSuccessAction(orgGroupSets)),
             catchError((error) => of (new orgUnits.LoadOrganisationUnitGroupSetsFailAction(error)))
