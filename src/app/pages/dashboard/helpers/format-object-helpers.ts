@@ -137,7 +137,7 @@ export function getGroupSetInfoForChart(selectedOrgUnit, orgUnitGroupSet, allLev
     if (first > next) {return 1; }
     return 0;
   });
-  if (getGroupLevelCount(selectedOrgUnit, allLevelFourOrgUnits) < totalOrgUnits) {
+  if (getGroupLevelCount(selectedOrgUnit, allLevelFourOrgUnits) > totalOrgUnits) {
     data.push({'name': 'Others', 'y': getGroupLevelCount(selectedOrgUnit, allLevelFourOrgUnits) - totalOrgUnits});
   }
   return data;
