@@ -50,7 +50,7 @@ export class FilterSectionComponent implements OnInit {
         'selectedOrgUnits': [
           {
             'id': this.selectOrgUnitId,
-            'name': 'MOH - Tanzania'
+            'name': ''
           }
         ],
         'userOrgUnits': [],

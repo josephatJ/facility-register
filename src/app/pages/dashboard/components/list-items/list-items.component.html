@@ -3,13 +3,13 @@
     <div class="list-groups">
       <div class="list-group-items" id="{{orgUnitsObject['items'][0].id}}">
         <div class="row">
-          <div class="col-11 org-name" style="display: inline-block" routerLink="/dashboard-management/edit/{{orgUnitsObject['items'][0].id}}/{{orgUnitsObject['items'][0].level}}">
+          <div class="col-11 org-name" style="display: inline-block; border: solid 1px #ffffff;" routerLink="/dashboard-management/edit/{{orgUnitsObject['items'][0].id}}/{{orgUnitsObject['items'][0].level}}">
             {{orgUnitsObject['items'][0].name}}
           </div>
-          <div class="col-1 menu-settings">
+          <div class="col-1 menu-settings" style="border: solid 1px #ffffff;">
             <li>
               <input id="input-{{orgUnitsObject['items'][0].id}}" type="checkbox" name="menu-settings"/>
-              <label for="input-{{orgUnitsObject['items'][0].id}}"><img src="assets/icons/settings-three-dots.png" style="margin-top: -20px" height="25" width="25"></label>
+              <label for="input-{{orgUnitsObject['items'][0].id}}"><img src="assets/icons/settings-three-dots.png" style="margin-top: -30px" height="25" width="25"></label>
               <ul class="submenu">
                 <li><a routerLink="/dashboard-management/edit/{{orgUnitsObject['items'][0].id}}/{{orgUnitsObject['items'][0].level}}">Edit</a></li>
                 <li><a routerLink="/dashboard-management/{{orgUnitsObject['items'][0].id}}/{{orgUnitsObject['items'][0].level}}">Delete</a></li>
@@ -28,16 +28,16 @@
       >
         <div class="row">
           <div class="col-11 org-name"
-               style="display: inline-block"
+               style="display: inline-block; border: solid 1px #ffffff;"
                routerLink="/dashboard-management/edit/{{item.id}}/{{item.level}}"
           >
             {{item.name}}
           </div>
-          <div class="col-1 menu-settings">
+          <div class="col-1 menu-settings" style="border: solid 1px #ffffff;">
             <li>
               <input id="input-{{item.id}}" type="checkbox" name="menu-settings"/>
               <label  for="input-{{item.id}}">
-                <img src="assets/icons/settings-three-dots.png" style="margin-top: -20px" height="25" width="25">
+                <img src="assets/icons/settings-three-dots.png" style="margin-top: -30px" height="25" width="25">
               </label>
               <ul class="submenu">
                 <li><a routerLink="/dashboard-management/edit/{{item.id}}/{{item.level}}">Edit</a></li>

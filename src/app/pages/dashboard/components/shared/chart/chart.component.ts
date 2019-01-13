@@ -13,17 +13,25 @@ export class ChartComponent implements OnInit {
   @Input() orgUnitGroup: any;
   @Input() levelFourOrgUnits: any;
   @Input() selectedOrganisationUnit: string;
-  @Input() data: any;
   Highcharts: any;
   chartOptions: any = null;
-  constructor() { }
+
+  isTrue: boolean = false;
+  constructor() {
+    this.isTrue = this.returnsTrue();
+   }
 
   ngOnInit() {
+    if (this.orgUnitGroup) {
+      this.drawChart(this.orgUnitGroup, this.levelFourOrgUnits, this.selectedOrganisationUnit);
     }
+  }
 
-  drawChart(selectedOrganisationUnit, orgUnitGroup, levelFourOrgUnits, data) {
+  drawChart(orgUnitGroup, levelFourOrgUnits, selectedOrganisationUnit) {
     this.Highcharts = Highcharts;
-    // const datas = helpers.getGroupSetInfoForChart(selectedOrganisationUnit, orgUnitGroup, levelFourOrgUnits)
+    const data = helpers.getGroupSetInfoForChart(selectedOrganisationUnit, orgUnitGroup, levelFourOrgUnits)
+    if (data) {
+      console.log('data', data);
     this.chartOptions = {
       chart: {
         plotBackgroundColor: null,
@@ -56,6 +64,10 @@ export class ChartComponent implements OnInit {
         data: data
       }]
     };
-    return this.chartOptions;
+    }
+  }
+
+  returnsTrue(): boolean {
+    return true;
   }
 }

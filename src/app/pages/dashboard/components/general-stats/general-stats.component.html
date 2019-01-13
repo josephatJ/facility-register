@@ -1,25 +1,41 @@
 <div class="organisation-group-sets" *ngIf="selectedOrganisationUnit">
   <div class="row slider">
     <div class="col-md-12 header-distribution">
-      <h4>Distribution of health facilities ({{getCountOfFacilitiesForSelectedOu(selectedOrganisationUnit, getActiveOrganisationGroup(organisationUnitGroupSets,selectedGroupId), levelFourOrgUnits['organisationUnits'])['overAllTotal']}})</h4>
+      <h4>Distribution of health facilities ({{getCountOfFacilitiesForSelectedOu(selectedOrganisationUnit, getActiveOrganisationGroup(organisationUnitGroupSets,selectedGroupId), levelFourOrgUnits['organisationUnits'])['overAllTotal']}})  <span *ngIf="selectedOrgUnitDefinition['items'].length > 0"> for {{selectedOrgUnitDefinition['items'][0]['name']}}</span> by group sets</h4>
     </div>
-    <div class="col-md-12">
-      <app-slider [datas]="getDataForChart(selectedOrganisationUnit, getActiveOrganisationGroup(organisationUnitGroupSets,selectedGroupId), levelFourOrgUnits['organisationUnits'])" [levelFourOrgUnits]="levelFourOrgUnits['organisationUnits']" [orgUnitGroups]="organisationUnitGroupSets" [selectedOrganisationUnit]="selectedOrganisationUnit"></app-slider>
+    <div class="col-5" *ngIf="organisationUnitGroupSets">
+      <app-slider [levelFourOrgUnits]="levelFourOrgUnits['organisationUnits']" [orgUnitGroups]="organisationUnitGroupSets" [selectedOrganisationUnit]="selectedOrganisationUnit"></app-slider>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-12 group-sets">
-      <h5>Health facilities group sets and their % distribution by groups (TOTAL facilities: {{getCountOfFacilitiesForSelectedOu(selectedOrganisationUnit, getActiveOrganisationGroup(organisationUnitGroupSets,selectedGroupId), levelFourOrgUnits['organisationUnits'])['overAllTotal']}})</h5>
-    </div>
-    <div class="col-md-6">
-      <div class="list-groups">
-        <div class="list-group-items" id="{{orgUnitGroup.id}}" *ngFor="let orgUnitGroup of organisationUnitGroupSets" (click)="setSelectedGroup(orgUnitGroup.id)"><div [ngClass]="orgUnitGroup.id == selectedGroupId ? 'active': 'item'">{{orgUnitGroup.name}} <span *ngIf="orgUnitGroup.id == selectedGroupId">({{getCountOfFacilitiesForSelectedOu(selectedOrganisationUnit, orgUnitGroup, levelFourOrgUnits['organisationUnits'])['totalOrgUnitsInGroup']}})</span></div></div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div *ngFor="let orgUnitGroup of organisationUnitGroupSets">
-        <div class="table" *ngIf="orgUnitGroup.id == selectedGroupId">
-          <app-table [orgUnitGroup]="orgUnitGroup" [levelFourOrgUnits]="levelFourOrgUnits['organisationUnits']" [selectedOrganisationUnit]="selectedOrganisationUnit"></app-table>
+    <div class="col-7 listed-group-sets" style="margin-top: 15px">
+      <div class="row">
+        <div class="col-6">
+          <div class="list-groups">
+            <div class="list-group-items">
+              <div class="item heading-group-sets">
+                  Health facilities group sets
+              </div>
+            </div>
+            <div 
+            class="list-group-items" 
+            id="{{orgUnitGroup.id}}" 
+            *ngFor="let orgUnitGroup of organisationUnitGroupSets | paginate: { itemsPerPage: 5, currentPage: p }" 
+            (click)="setSelectedGroup(orgUnitGroup.id)">
+              <div [ngClass]="orgUnitGroup.id == selectedGroupId ? 'active': 'item'">
+                {{orgUnitGroup.name}} 
+                <span *ngIf="orgUnitGroup.id == selectedGroupId">
+                  ({{getCountOfFacilitiesForSelectedOu(selectedOrganisationUnit, orgUnitGroup, levelFourOrgUnits['organisationUnits'])['totalOrgUnitsInGroup']}})
+                </span>
+              </div>
+            </div>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+        <div class="col-6">
+          <div *ngFor="let orgUnitGroup of organisationUnitGroupSets">
+            <div class="table" *ngIf="orgUnitGroup.id == selectedGroupId">
+              <app-table [orgUnitGroup]="orgUnitGroup" [levelFourOrgUnits]="levelFourOrgUnits['organisationUnits']" [selectedOrganisationUnit]="selectedOrganisationUnit"></app-table>
+            </div>
+          </div>
         </div>
       </div>
     </div>

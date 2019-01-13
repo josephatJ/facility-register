@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Registration</h1>
-  <form #OrganisationUnitForm="ngForm" *ngIf="model && typeOfAction === 'add'">
+  <form #OrganisationUnitForm="ngForm" *ngIf="model">
     <div class="form-group">
       <input type="text" class="form-control" placeholder="Name" id="name" [(ngModel)]="model.name" name="name" required>
     </div>

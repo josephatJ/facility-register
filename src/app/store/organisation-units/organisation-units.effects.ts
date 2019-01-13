@@ -59,7 +59,6 @@ private _orgUnitGroupSetsInfo(urls) {
 
 private  _getOrganisationUnit(id): Observable<any> {
       const url = 'organisationUnits/' + id + '.json?fields=id,name,level,children[id,name,level]';
-      console.log(url);
       return this.httpClient.get(url);
 }
 }

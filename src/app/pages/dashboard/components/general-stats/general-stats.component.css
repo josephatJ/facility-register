@@ -32,6 +32,10 @@
   color: #222222;
 }
 
+.item:hover{
+  background-color: #2C6695;
+  color: #FFF;
+}
 .arrow-right {
   width: 0;
   height: 0;
@@ -70,5 +74,12 @@ div .active:before{
 
 .group-sets h5 {
   color: #2C6695; text-align: left;
+}
+
+.heading-group-sets {
+  background-color: #eeeeee !important;
+  color: #222222 !important;
+  font-weight: 600;
+  cursor: default !important;
 }
 

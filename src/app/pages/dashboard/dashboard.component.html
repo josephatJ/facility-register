@@ -1,20 +1,35 @@
-<div class="dashboard-container container-fluid" *ngIf="organisationGroupSets && levelFourOrgUnits">
-  <div class="row">
-    <div class="col-2">
+<div class="dashboard-container container-fluid">
+  <div class="row" style="margin-bottom: 15px;" *ngIf="selectedOrgUnitId">
+    <div class="col-12">
+        <div class="menu-pills" [ngClass]="menu.typeOfAction === this.selectedOrgUnitDefinition.typeOfAction ? 'active-menu' : ''" *ngFor="let menu of menuLists" routerLink="/dashboard/{{menu.typeOfAction}}/{{selectedOrgUnitId}}">{{menu.name}}</div>
+        <div class="notifications" style="float: right" *ngIf="organisationGroupSets && currentUser$">
+          <app-notifications [currentUserInfo]="currentUser$ | async"></app-notifications>
+        </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="organisationGroupSets && levelFourOrgUnits">
+    <!-- <div class="col-2">
       <div class="org-unit-filter">
         <app-filter-section [selectOrgUnitId]="selectedOrgUnitId" (organisationsDefinition)="getSelectedOrgUnitDefinition($event)"></app-filter-section>
       </div>
-    </div>
-    <div class="col-10" *ngIf="selectedOrgUnitDefinition.typeOfAction == 'update'">
-      <div class="notifications" style="float: right">
-        <app-notifications [currentUserInfo]="currentUser$ | async"></app-notifications>
-      </div>
-      <div style="float: right">
-        <app-general-stats [organisationUnitGroupSets]="organisationGroupSets" [levelFourOrgUnits]="levelFourOrgUnits" [selectedOrganisationUnit]="selectedOrgUnitId"></app-general-stats>
+    </div> -->
+    <div class="col-12" *ngIf="selectedOrgUnitDefinition.typeOfAction == 'stats'">
+      <div *ngIf="organisationGroupSets">
+        <app-general-stats
+         [selectedOrgUnitDefinition]="selectedOrgUnitDefinition" [organisationUnitGroupSets]="organisationGroupSets" [levelFourOrgUnits]="levelFourOrgUnits" [selectedOrganisationUnit]="selectedOrgUnitId"></app-general-stats>
       </div>
     </div>
-    <div class="col-10" *ngIf="selectedOrgUnitDefinition.typeOfAction == 'manage'">
-      <app-list-items [orgUnitsObject]="selectedOrgUnitDefinition"></app-list-items>
+    <div class="col-12" *ngIf="selectedOrgUnitDefinition.typeOfAction == 'manage'">
+      <div class="row">
+        <div class="col-3">
+          <div class="org-unit-filter">
+            <app-filter-section [selectOrgUnitId]="selectedOrgUnitId" (organisationsDefinition)="getSelectedOrgUnitDefinition($event)"></app-filter-section>
+          </div>
+        </div>
+        <div class="col-9">
+            <app-list-items [orgUnitsObject]="selectedOrgUnitDefinition"></app-list-items>
+        </div>
+      </div>
     </div>
   </div>
 </div>

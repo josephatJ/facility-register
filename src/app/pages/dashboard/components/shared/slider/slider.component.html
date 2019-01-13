@@ -1,6 +1,6 @@
-<div class="visualization-slider" *ngIf="datas" style="height: 360px;"
+<div class="visualization-slider" *ngIf="orgUnitGroups" style="height: 260px;"
      xmlns="http://www.w3.org/1999/html">
-  <div id="slider" class="carousel slide" data-ride="carousel" data-interval="5000" style="height: 350px;">
+  <div id="slider" class="carousel slide" data-ride="carousel" data-interval="5000" style="height: 250px;">
     <!-- Indicators -->
     <ol class="carousel-indicators">
       <li data-target="#slider" data-slide-to="0" class="active"></li>
@@ -13,7 +13,7 @@
         <div class="row">
           <div class="col-12">
             <div class="chart">
-              <app-chart [data]="getDataForChart(selectedOrganisationUnit, orgUnitGroups[0], levelFourOrgUnits)" [orgUnitGroup]="orgUnitGroups[0]" [levelFourOrgUnits]="levelFourOrgUnits" [selectedOrganisationUnit]="selectedOrganisationUnit"></app-chart>
+              <app-chart [orgUnitGroup]="orgUnitGroups[0]" [levelFourOrgUnits]="levelFourOrgUnits" [selectedOrganisationUnit]="selectedOrganisationUnit"></app-chart>
             </div>
           </div>
         </div>
@@ -23,7 +23,7 @@
         <div class="row">
           <div class="col-12">
             <div class="chart">
-              <app-chart [data]="getDataForChart(selectedOrganisationUnit, group, levelFourOrgUnits)" [orgUnitGroup]="group" [levelFourOrgUnits]="levelFourOrgUnits" [selectedOrganisationUnit]="selectedOrganisationUnit"></app-chart>
+              <app-chart [orgUnitGroup]="group" [levelFourOrgUnits]="levelFourOrgUnits" [selectedOrganisationUnit]="selectedOrganisationUnit"></app-chart>
             </div>
           </div>
         </div>

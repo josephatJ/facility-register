@@ -9,6 +9,8 @@ import {getOrganisationUnitGroupSets} from '../../store/organisation-units/organ
 import * as currentUser from '../../store/current-user/current-user.actions';
 import {AppState} from '../../store/app.reducers';
 import {ActivatedRoute, Params} from '@angular/router';
+import * as helpers from './helpers';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,8 +31,20 @@ export class DashboardComponent implements OnInit {
     items: {},
     name: 'ou',
     value: {},
-    typeOfAction: 'update'
+    typeOfAction: 'stats'
   };
+  menuLists: any = [
+    {
+      id: 'home',
+      name: 'Home',
+      typeOfAction: 'stats'
+    },
+    {
+      id: 'manage',
+      name: 'Manage',
+      typeOfAction: 'manage'
+    }
+  ]
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {
     store.dispatch( new orgUnits.LoadOrganisationUnitGroupSetsAction);
     this.currentUser$ = store.pipe(select(getCurrentUser));
@@ -68,8 +82,22 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  getDataForChart(selectedOrganisationUnit, orgUnitGroup, levelFourOrgUnits) {
+    return helpers.getGroupSetInfoForChart(selectedOrganisationUnit, orgUnitGroup, levelFourOrgUnits)
+  }
+
   getSelectedOrgUnitDefinition(orgDefinition) {
     this.selectedOrgUnitDefinition = orgDefinition;
+  }
+
+  getActiveOrganisationGroup(groupSets, selectedGroupId) {
+    let activeGroupSet = {};
+    _.map(groupSets, (groupSet, index) => {
+      if (groupSet.id === selectedGroupId) {
+        activeGroupSet = groupSet;
+      }
+    });
+    return activeGroupSet;
   }
 }
 

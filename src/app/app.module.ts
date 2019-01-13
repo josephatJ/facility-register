@@ -48,7 +48,7 @@ import { ConfirmOrgRegistrationComponent } from './pages/dashboard/components/co
     ListItemsComponent,
     NotificationsComponent,
     OrganisationUnitRegistrationComponent,
-    ConfirmOrgRegistrationComponent
+    ConfirmOrgRegistrationComponent,
   ],
   imports: [
     BrowserModule,

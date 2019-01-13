@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 
 import { OrganisationUnitLevelFour } from './organisation-unit';
 import {HttpClientService} from '../../../../services/http-client.service';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 import {Observable} from 'rxjs';
 import * as _ from 'lodash';
 import {DataSetsState} from '../../../../store/data-sets/data-sets.state';
@@ -41,7 +41,8 @@ export class OrganisationUnitRegistrationComponent implements OnInit {
   unConfirmedOrgUnitsFromdDataStore$: Observable<OrganisationUnitFromStoreState>;
   accessGroup: any;
   userInformation: any;
-  constructor(private httpClientService: HttpClientService, private router: Router, private store: Store<AppState>) {
+  organisationUnitId: string;
+  constructor(private httpClientService: HttpClientService, private router: Router, private route: ActivatedRoute, private store: Store<AppState>) {
     // store.dispatch(new currentUser.LoadCurrentUserAction());
     // store.dispatch(new dataStore.LoadUserAccessAction());
     store.dispatch(new dataSetsActions.LoadDataSetsAction());
@@ -69,19 +70,29 @@ export class OrganisationUnitRegistrationComponent implements OnInit {
                 return first - next;
               });
               this.accessGroup = possibleAccessGroups[0];
-
+              if (this.dataSets$) {
+                this.dataSets$.subscribe((dataSets) => {
+                  if (dataSets) {
+                    this.availableDataSets = dataSets.dataSets;
+                  }
+                });
+              }
               if (this.typeOfAction === 'add') {
                 this.dataSets = ['L&D', 'ANC'];
-                if (this.dataSets$) {
-                  this.dataSets$.subscribe((dataSets) => {
-                    if (dataSets) {
-                      this.availableDataSets = dataSets.dataSets;
-                    }
-                  });
-                }
                 this.model = new OrganisationUnitLevelFour('1WsUihtSytA', 'Facility XXXX', 'Facility XXXX', 'Facility XXXX', 'this is description', '20-12-2018', '20-12-2018', 'This is comment', 'Josephat', '0766', 'P.O Box', 20, 20, this.selectedItems, this.dataSets, this.dataSets);
               } else {
                 console.log(this.typeOfAction);
+                this.route.params.forEach((params: Params) => {
+                  this.organisationUnitId = params['id'];
+                  this.httpClientService.get('organisationUnits/' + params['id'] + '.json?fields=*')
+                  .subscribe((orgUnitInformation) => {
+                    console.log(orgUnitInformation);
+                    orgUnitInformation['dataSets'].forEach((dataSet) => {
+                      this.addSelectedItems(dataSet.id);
+                    })
+                    this.model = new OrganisationUnitLevelFour('1WsUihtSytA', orgUnitInformation.name, orgUnitInformation.shortName, orgUnitInformation.code, 'this is description', '20-12-2018', '20-12-2018', 'This is comment', 'Josephat', '0766', 'P.O Box', 20, 20, this.selectedItems, this.dataSets, this.dataSets);
+                  })
+                })
               }
               this.submitted = false;
             }

@@ -77,7 +77,6 @@ div.menu-settings > li{
 label{
   position:relative;
   display:block;
-  padding:0 18px 0 12px;
   line-height:3em;
   transition:background 0.3s;
   cursor:pointer;
@@ -98,7 +97,7 @@ label:after{
   transition:border-bottom .1s, border-top .1s .1s;
 }
 
-input:checked ~ label{background:rgba(0,0,0,.3);}
+input:checked ~ label{background:#2C6695;}
 
 input:checked ~ label:after{
   border-top:0 solid rgba(255,255,255,.5);

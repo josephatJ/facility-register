@@ -1,3 +1,19 @@
 .dashboard-container {
   margin-top: 55px;
 }
+
+.menu-pills {
+  min-width: 50px;
+  border-radius: 5px;
+  background-color: #ecebeb;
+  margin-right: 10px;
+  padding: 6px;
+  float: left;
+  outline: none;
+  cursor: pointer;
+}
+
+.active-menu {
+  background-color: #2C6695;
+  color: #ffffff;
+}

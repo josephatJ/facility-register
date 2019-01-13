@@ -31,7 +31,7 @@ export class CurrentUserEffects {
       let navigateTo = '';
       console.log('this.router.url', this.router.url);
       if (this.router.url === '/') {
-        navigateTo = '/dashboard/update/' + action.payload['dataViewOrganisationUnits'][0]['id'];
+        navigateTo = '/dashboard/stats/' + action.payload['dataViewOrganisationUnits'][0]['id'];
       } else {
         navigateTo = this.router.url;
       }
